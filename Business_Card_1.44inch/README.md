@@ -1,7 +1,5 @@
 # ePaper Business Card Development Project
 
-## Record Keeping ...
-
 ### Directory Structure for BC (Business Card) Project
 
 | Directory |	Description |
@@ -21,24 +19,6 @@ The image drawing control logic for the BC's e-paper was developed using the Leo
 The current state of this code is capable of drawing an image to the 1.44" Aurora Mb Display, where the image data is stored in internal distributed ram during the bit generation process. 
 
 The only differences between the two VHDL sources (Lattice vs Spartan7) are: (1) the Lattice runs at 25 MHz system clock while the Spartan7's system clock is 100 MHz (divided down to 25 MHz in top so rest of VHDL sources are the same, and (2) I/O config files of course differ. Additionally, the image file scripts differ to create Mem source files for the Lattice and COE formatted memory file for the Spartan.  
-
-####  Notes for myself as to Vivado Project names and locations on my desktop computer
-
-Lattice BC mirror image design name and location on my harddrive at:
-
-    $HOME\Lattice-Radiant-FPGA-IDE\Adiuvo_BCard_proj
-    
-Spartan7 location name and location (Lattice BC dual):
-
-    $HARDDRIVE\FPGA\Xilinx_Sim_BCard_Proj
-    
-and location of both designs above in this GitHub repository under:
-
-    Boards > Custom_Latttice_BC > Projects > Business_Card_1.44inch > Radian_Src
-
-and
-
-    Boards > Custom_Latttice_BC > Projects > Business_Card_1.44inch > Spartan_Src
 
 
 ## Full Project Development Parts List (Including Debug Hardware)
