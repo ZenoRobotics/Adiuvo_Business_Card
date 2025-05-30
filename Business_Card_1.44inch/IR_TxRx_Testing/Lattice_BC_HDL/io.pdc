@@ -1,0 +1,7 @@
+#----
+#create_clock -name {i_clk} -period 40 [get_ports i_clk]
+ldc_set_location -site {M4} [get_ports i_clk]
+ldc_set_location -site {N1} [get_ports o_ir_tx]
+#ldc_set_location -site {B1} [get_ports i_ir_rcvr_data]
+
+ldc_set_location -site {N3} [get_ports i_ir_rcvr_data]

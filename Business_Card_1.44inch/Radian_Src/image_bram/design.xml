@@ -1,0 +1,87 @@
+<?xml version="1.0" ?>
+<ipxact:design xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014" xmlns:lattice="http://www.latticesemi.com/lattice" xmlns:lsccip="http://www.latticesemi.com/XMLSchema/Radiant/ip">
+    <ipxact:vendor>latticesemi.com</ipxact:vendor>
+    <ipxact:library>module</ipxact:library>
+    <ipxact:name>image_bram</ipxact:name>
+    <ipxact:version>1.4.0</ipxact:version>
+    <ipxact:componentInstances>
+        <ipxact:componentInstance>
+            <ipxact:instanceName>lscc_distributed_rom_inst</ipxact:instanceName>
+            <ipxact:componentRef library="module" name="distributed_rom" vendor="latticesemi.com" version="1.4.0">
+                <ipxact:configurableElementValues>
+                    <ipxact:configurableElementValue referenceId="FAMILY">LIFCL</ipxact:configurableElementValue>
+                    <ipxact:configurableElementValue referenceId="T_FAMILY">LIFCL</ipxact:configurableElementValue>
+                    <ipxact:configurableElementValue referenceId="RADDR_DEPTH">1536</ipxact:configurableElementValue>
+                    <ipxact:configurableElementValue referenceId="RDATA_WIDTH">8</ipxact:configurableElementValue>
+                    <ipxact:configurableElementValue referenceId="Total Memory bits">12288</ipxact:configurableElementValue>
+                    <ipxact:configurableElementValue referenceId="REGMODE">False</ipxact:configurableElementValue>
+                    <ipxact:configurableElementValue referenceId="RESETMODE">sync</ipxact:configurableElementValue>
+                    <ipxact:configurableElementValue referenceId="RADDR_WIDTH">11</ipxact:configurableElementValue>
+                    <ipxact:configurableElementValue referenceId="user_init_mode">mem_file</ipxact:configurableElementValue>
+                    <ipxact:configurableElementValue referenceId="INIT_MODE">mem_file</ipxact:configurableElementValue>
+                    <ipxact:configurableElementValue referenceId="user_init_file">C:/Users/zenop/OneDrive/Documents/Lattice-Radiant-FPGA-IDE/Adiuvo_BCard_proj/image_bram/misc/lattice_bram_image_data_image_bram_copy.mem</ipxact:configurableElementValue>
+                    <ipxact:configurableElementValue referenceId="INIT_FILE">C:/Users/zenop/OneDrive/Documents/Lattice-Radiant-FPGA-IDE/Adiuvo_BCard_proj/image_bram/misc/lattice_bram_image_data_image_bram_copy.mem</ipxact:configurableElementValue>
+                    <ipxact:configurableElementValue referenceId="INIT_FILE_FORMAT">hex</ipxact:configurableElementValue>
+                </ipxact:configurableElementValues>
+            </ipxact:componentRef>
+        </ipxact:componentInstance>
+    </ipxact:componentInstances>
+    <ipxact:adHocConnections>
+        <ipxact:adHocConnection>
+            <ipxact:name>image_bram.rd_clk_i</ipxact:name>
+            <ipxact:portReferences>
+                <ipxact:internalPortReference componentRef="image_bram" portRef="rd_clk_i"/>
+                <ipxact:externalPortReference portRef="rd_clk_i"/>
+            </ipxact:portReferences>
+        </ipxact:adHocConnection>
+        <ipxact:adHocConnection>
+            <ipxact:name>image_bram.rst_i</ipxact:name>
+            <ipxact:tiedValue>1'b0</ipxact:tiedValue>
+            <ipxact:portReferences>
+                <ipxact:internalPortReference componentRef="image_bram" portRef="rst_i"/>
+            </ipxact:portReferences>
+        </ipxact:adHocConnection>
+        <ipxact:adHocConnection>
+            <ipxact:name>image_bram.rd_en_i</ipxact:name>
+            <ipxact:portReferences>
+                <ipxact:internalPortReference componentRef="image_bram" portRef="rd_en_i"/>
+                <ipxact:externalPortReference portRef="rd_en_i"/>
+            </ipxact:portReferences>
+        </ipxact:adHocConnection>
+        <ipxact:adHocConnection>
+            <ipxact:name>image_bram.rd_clk_en_i</ipxact:name>
+            <ipxact:portReferences>
+                <ipxact:internalPortReference componentRef="image_bram" portRef="rd_clk_en_i"/>
+                <ipxact:externalPortReference portRef="rd_clk_en_i"/>
+            </ipxact:portReferences>
+        </ipxact:adHocConnection>
+        <ipxact:adHocConnection>
+            <ipxact:name>image_bram.rd_addr_i</ipxact:name>
+            <ipxact:portReferences>
+                <ipxact:internalPortReference componentRef="image_bram" portRef="rd_addr_i"/>
+                <ipxact:externalPortReference portRef="rd_addr_i">
+                    <ipxact:partSelect>
+                        <ipxact:range>
+                            <ipxact:left>10</ipxact:left>
+                            <ipxact:right>0</ipxact:right>
+                        </ipxact:range>
+                    </ipxact:partSelect>
+                </ipxact:externalPortReference>
+            </ipxact:portReferences>
+        </ipxact:adHocConnection>
+        <ipxact:adHocConnection>
+            <ipxact:name>image_bram.rd_data_o</ipxact:name>
+            <ipxact:portReferences>
+                <ipxact:internalPortReference componentRef="image_bram" portRef="rd_data_o"/>
+                <ipxact:externalPortReference portRef="rd_data_o">
+                    <ipxact:partSelect>
+                        <ipxact:range>
+                            <ipxact:left>7</ipxact:left>
+                            <ipxact:right>0</ipxact:right>
+                        </ipxact:range>
+                    </ipxact:partSelect>
+                </ipxact:externalPortReference>
+            </ipxact:portReferences>
+        </ipxact:adHocConnection>
+    </ipxact:adHocConnections>
+</ipxact:design>

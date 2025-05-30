@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<RadiantModule architecture="je5d00" date="2025 03 28 08:16:44" device="LIFCL-33" device_int="jd5u27" display_module="Distributed_ROM" display_vendor="latticesemi.com" family="LIFCL" gen_platform="Radiant" gen_platform_version="2024.2.0.3.0" generator="ipgen" library="module" module="distributed_rom" name="image_bram" operation="Commercial" package="WLCSP84" package_int="WLCSP84" partnumber="LIFCL-33-8USG84C" source_format="Verilog" speed="8_High-Performance_1.0V" speed_int="11" vendor="latticesemi.com" version="1.4.0">
+ <Package>
+  <File modified="2025 03 28 08:16:44" name="rtl/image_bram_bb.v" type="black_box_verilog"/>
+  <File modified="2025 03 28 08:16:44" name="image_bram.cfg" type="cfg"/>
+  <File modified="2025 03 28 08:16:44" name="misc/image_bram_tmpl.v" type="template_verilog"/>
+  <File modified="2025 03 28 08:16:44" name="misc/image_bram_tmpl.vhd" type="template_vhdl"/>
+  <File modified="2025 03 28 08:16:44" name="rtl/image_bram.v" type="top_level_verilog"/>
+  <File modified="2025 03 28 08:16:44" name="constraints/image_bram.ldc" type="timing_constraints"/>
+  <File modified="2025 03 28 08:16:44" name="testbench/dut_params.v" type="dependency_file"/>
+  <File modified="2025 03 28 08:16:44" name="testbench/dut_inst.v" type="dependency_file"/>
+  <File modified="2025 03 28 08:16:44" name="eval/dut_params.v" type="dependency_file"/>
+  <File modified="2025 03 28 08:16:44" name="eval/dut_inst.v" type="dependency_file"/>
+  <File modified="2025 03 28 08:16:44" name="component.xml" type="IP-XACT_component"/>
+  <File modified="2025 03 28 08:16:44" name="design.xml" type="IP-XACT_design"/>
+  <File modified="2020 03 09 02:17:19" name="testbench/clk_rst_gen.v" type="testbench_verilog"/>
+  <File modified="2021 04 29 11:45:28" name="testbench/dist_mem_master.v" type="testbench_verilog"/>
+  <File modified="2021 06 30 09:53:14" name="testbench/dist_mem_model.v" type="testbench_verilog"/>
+  <File modified="2024 07 30 23:45:40" name="testbench/tb_top.v" type="testbench_verilog"/>
+  <File modified="2023 09 29 07:15:14" name="eval/constraint.pdc" type="eval"/>
+ </Package>
+</RadiantModule>

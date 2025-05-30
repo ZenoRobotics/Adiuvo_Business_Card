@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_top_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="tb_top" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="911,204.741666 us"></ZoomStartTime>
+      <ZoomEndTime time="913,084.741667 us"></ZoomEndTime>
+      <Cursor1Time time="913,352.741666 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="184"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="148" />
+   <wvobject fp_name="/tb_top/i_clk" type="logic">
+      <obj_property name="ElementShortName">i_clk</obj_property>
+      <obj_property name="ObjectShortName">i_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/o_rstn" type="logic">
+      <obj_property name="ElementShortName">o_rstn</obj_property>
+      <obj_property name="ObjectShortName">o_rstn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/i_config_btn" type="logic">
+      <obj_property name="ElementShortName">i_config_btn</obj_property>
+      <obj_property name="ObjectShortName">i_config_btn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/o_done" type="logic">
+      <obj_property name="ElementShortName">o_done</obj_property>
+      <obj_property name="ObjectShortName">o_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/i_miso" type="logic">
+      <obj_property name="ElementShortName">i_miso</obj_property>
+      <obj_property name="ObjectShortName">i_miso</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/o_sclk" type="logic">
+      <obj_property name="ElementShortName">o_sclk</obj_property>
+      <obj_property name="ObjectShortName">o_sclk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/o_mosi" type="logic">
+      <obj_property name="ElementShortName">o_mosi</obj_property>
+      <obj_property name="ObjectShortName">o_mosi</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/o_csn" type="logic">
+      <obj_property name="ElementShortName">o_csn</obj_property>
+      <obj_property name="ObjectShortName">o_csn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/o_data" type="array">
+      <obj_property name="ElementShortName">o_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/clk_period" type="other">
+      <obj_property name="ElementShortName">clk_period</obj_property>
+      <obj_property name="ObjectShortName">clk_period</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider114">
+      <obj_property name="label">spi_clk</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/i_clk" type="logic">
+      <obj_property name="ElementShortName">i_clk</obj_property>
+      <obj_property name="ObjectShortName">i_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/i_data" type="array">
+      <obj_property name="ElementShortName">i_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">i_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/i_load" type="logic">
+      <obj_property name="ElementShortName">i_load</obj_property>
+      <obj_property name="ObjectShortName">i_load</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_load" type="logic">
+      <obj_property name="ElementShortName">s_load</obj_property>
+      <obj_property name="ObjectShortName">s_load</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/o_done" type="logic">
+      <obj_property name="ElementShortName">o_done</obj_property>
+      <obj_property name="ObjectShortName">o_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/o_busy" type="logic">
+      <obj_property name="ElementShortName">o_busy</obj_property>
+      <obj_property name="ObjectShortName">o_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_sck" type="logic">
+      <obj_property name="ElementShortName">s_sck</obj_property>
+      <obj_property name="ObjectShortName">s_sck</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/o_sclk" type="logic">
+      <obj_property name="ElementShortName">o_sclk</obj_property>
+      <obj_property name="ObjectShortName">o_sclk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/o_mosi" type="logic">
+      <obj_property name="ElementShortName">o_mosi</obj_property>
+      <obj_property name="ObjectShortName">o_mosi</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/o_csn" type="logic">
+      <obj_property name="ElementShortName">o_csn</obj_property>
+      <obj_property name="ObjectShortName">o_csn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_baud_counter" type="array">
+      <obj_property name="ElementShortName">s_baud_counter[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_baud_counter[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_baud_enb" type="logic">
+      <obj_property name="ElementShortName">s_baud_enb</obj_property>
+      <obj_property name="ObjectShortName">s_baud_enb</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_data_reg" type="array">
+      <obj_property name="ElementShortName">s_data_reg[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_data_reg[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_current_state" type="other">
+      <obj_property name="ElementShortName">s_current_state</obj_property>
+      <obj_property name="ObjectShortName">s_current_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_payload" type="array">
+      <obj_property name="ElementShortName">s_payload[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_payload[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_sck_fe" type="logic">
+      <obj_property name="ElementShortName">s_sck_fe</obj_property>
+      <obj_property name="ObjectShortName">s_sck_fe</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_tmr" type="array">
+      <obj_property name="ElementShortName">s_tmr[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_tmr[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_fe_det" type="array">
+      <obj_property name="ElementShortName">s_fe_det[1:0]</obj_property>
+      <obj_property name="ObjectShortName">s_fe_det[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_busy" type="logic">
+      <obj_property name="ElementShortName">s_busy</obj_property>
+      <obj_property name="ObjectShortName">s_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_bytes" type="array">
+      <obj_property name="ElementShortName">s_bytes[12:0]</obj_property>
+      <obj_property name="ObjectShortName">s_bytes[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_byte_cnt" type="array">
+      <obj_property name="ElementShortName">s_byte_cnt[12:0]</obj_property>
+      <obj_property name="ObjectShortName">s_byte_cnt[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_sclk_del_cnt" type="array">
+      <obj_property name="ElementShortName">s_sclk_del_cnt[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_sclk_del_cnt[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_done" type="logic">
+      <obj_property name="ElementShortName">s_done</obj_property>
+      <obj_property name="ObjectShortName">s_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_kill_sck" type="logic">
+      <obj_property name="ElementShortName">s_kill_sck</obj_property>
+      <obj_property name="ObjectShortName">s_kill_sck</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/s_delay_cs" type="other">
+      <obj_property name="ElementShortName">s_delay_cs</obj_property>
+      <obj_property name="ObjectShortName">s_delay_cs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/C_SCLK_DEL" type="other">
+      <obj_property name="ElementShortName">C_SCLK_DEL</obj_property>
+      <obj_property name="ObjectShortName">C_SCLK_DEL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/g_clk_freq" type="other">
+      <obj_property name="ElementShortName">g_clk_freq</obj_property>
+      <obj_property name="ObjectShortName">g_clk_freq</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/g_done_delay" type="other">
+      <obj_property name="ElementShortName">g_done_delay</obj_property>
+      <obj_property name="ObjectShortName">g_done_delay</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/g_cs_delay" type="other">
+      <obj_property name="ElementShortName">g_cs_delay</obj_property>
+      <obj_property name="ObjectShortName">g_cs_delay</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/g_kill_sck" type="other">
+      <obj_property name="ElementShortName">g_kill_sck</obj_property>
+      <obj_property name="ObjectShortName">g_kill_sck</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/g_spi_clk" type="other">
+      <obj_property name="ElementShortName">g_spi_clk</obj_property>
+      <obj_property name="ObjectShortName">g_spi_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/spi_op_inst/c_fe_det" type="array">
+      <obj_property name="ElementShortName">c_fe_det[1:0]</obj_property>
+      <obj_property name="ObjectShortName">c_fe_det[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider12">
+      <obj_property name="label">top_bc</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/i_clk" type="logic">
+      <obj_property name="ElementShortName">i_clk</obj_property>
+      <obj_property name="ObjectShortName">i_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/i_config_btn" type="logic">
+      <obj_property name="ElementShortName">i_config_btn</obj_property>
+      <obj_property name="ObjectShortName">i_config_btn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/o_discharge" type="logic">
+      <obj_property name="ElementShortName">o_discharge</obj_property>
+      <obj_property name="ObjectShortName">o_discharge</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/o_rstn" type="logic">
+      <obj_property name="ElementShortName">o_rstn</obj_property>
+      <obj_property name="ObjectShortName">o_rstn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/i_busy" type="logic">
+      <obj_property name="ElementShortName">i_busy</obj_property>
+      <obj_property name="ObjectShortName">i_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_run_again" type="other">
+      <obj_property name="ElementShortName">s_run_again</obj_property>
+      <obj_property name="ObjectShortName">s_run_again</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_start_sm" type="logic">
+      <obj_property name="ElementShortName">s_start_sm</obj_property>
+      <obj_property name="ObjectShortName">s_start_sm</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/o_epaper_pwr_en" type="logic">
+      <obj_property name="ElementShortName">o_epaper_pwr_en</obj_property>
+      <obj_property name="ObjectShortName">o_epaper_pwr_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/o_epaper_discharge" type="logic">
+      <obj_property name="ElementShortName">o_epaper_discharge</obj_property>
+      <obj_property name="ObjectShortName">o_epaper_discharge</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/s_done" type="logic">
+      <obj_property name="ElementShortName">s_done</obj_property>
+      <obj_property name="ObjectShortName">s_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/o_sclk" type="logic">
+      <obj_property name="ElementShortName">o_sclk</obj_property>
+      <obj_property name="ObjectShortName">o_sclk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/o_mosi" type="logic">
+      <obj_property name="ElementShortName">o_mosi</obj_property>
+      <obj_property name="ObjectShortName">o_mosi</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/o_csn" type="logic">
+      <obj_property name="ElementShortName">o_csn</obj_property>
+      <obj_property name="ObjectShortName">o_csn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/s_data" type="array">
+      <obj_property name="ElementShortName">s_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_current_state" type="other">
+      <obj_property name="ElementShortName">s_current_state</obj_property>
+      <obj_property name="ObjectShortName">s_current_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_next_state" type="other">
+      <obj_property name="ElementShortName">s_next_state</obj_property>
+      <obj_property name="ObjectShortName">s_next_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_delay_ms" type="other">
+      <obj_property name="ElementShortName">s_delay_ms</obj_property>
+      <obj_property name="ObjectShortName">s_delay_ms</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_delay_cnt" type="other">
+      <obj_property name="ElementShortName">s_delay_cnt</obj_property>
+      <obj_property name="ObjectShortName">s_delay_cnt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_row_count" type="other">
+      <obj_property name="ElementShortName">s_row_count</obj_property>
+      <obj_property name="ObjectShortName">s_row_count</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/s_load" type="logic">
+      <obj_property name="ElementShortName">s_load</obj_property>
+      <obj_property name="ObjectShortName">s_load</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/s_rx_data" type="array">
+      <obj_property name="ElementShortName">s_rx_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_rx_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/s_busy" type="logic">
+      <obj_property name="ElementShortName">s_busy</obj_property>
+      <obj_property name="ObjectShortName">s_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/s_pb_db" type="logic">
+      <obj_property name="ElementShortName">s_pb_db</obj_property>
+      <obj_property name="ObjectShortName">s_pb_db</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/s_config_btn_db" type="logic">
+      <obj_property name="ElementShortName">s_config_btn_db</obj_property>
+      <obj_property name="ObjectShortName">s_config_btn_db</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/s_pb2_o_null" type="logic">
+      <obj_property name="ElementShortName">s_pb2_o_null</obj_property>
+      <obj_property name="ObjectShortName">s_pb2_o_null</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/s_pb3_o_null" type="logic">
+      <obj_property name="ElementShortName">s_pb3_o_null</obj_property>
+      <obj_property name="ObjectShortName">s_pb3_o_null</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/s_clk_1kHz" type="logic">
+      <obj_property name="ElementShortName">s_clk_1kHz</obj_property>
+      <obj_property name="ObjectShortName">s_clk_1kHz</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/s_led0_blue" type="logic">
+      <obj_property name="ElementShortName">s_led0_blue</obj_property>
+      <obj_property name="ObjectShortName">s_led0_blue</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/g_clk_freq" type="other">
+      <obj_property name="ElementShortName">g_clk_freq</obj_property>
+      <obj_property name="ObjectShortName">g_clk_freq</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/g_spi_clk" type="other">
+      <obj_property name="ElementShortName">g_spi_clk</obj_property>
+      <obj_property name="ObjectShortName">g_spi_clk</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider34">
+      <obj_property name="label">epaper_cntrlr</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/i_clk" type="logic">
+      <obj_property name="ElementShortName">i_clk</obj_property>
+      <obj_property name="ObjectShortName">i_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/i_ms_dly_clk" type="logic">
+      <obj_property name="ElementShortName">i_ms_dly_clk</obj_property>
+      <obj_property name="ObjectShortName">i_ms_dly_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/o_data" type="array">
+      <obj_property name="ElementShortName">o_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/i_config" type="logic">
+      <obj_property name="ElementShortName">i_config</obj_property>
+      <obj_property name="ObjectShortName">i_config</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/o_rstn" type="logic">
+      <obj_property name="ElementShortName">o_rstn</obj_property>
+      <obj_property name="ObjectShortName">o_rstn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/i_busy" type="logic">
+      <obj_property name="ElementShortName">i_busy</obj_property>
+      <obj_property name="ObjectShortName">i_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/o_epaper_pwr_en" type="logic">
+      <obj_property name="ElementShortName">o_epaper_pwr_en</obj_property>
+      <obj_property name="ObjectShortName">o_epaper_pwr_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/o_discharge" type="logic">
+      <obj_property name="ElementShortName">o_discharge</obj_property>
+      <obj_property name="ObjectShortName">o_discharge</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/i_done" type="logic">
+      <obj_property name="ElementShortName">i_done</obj_property>
+      <obj_property name="ObjectShortName">i_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/o_load" type="logic">
+      <obj_property name="ElementShortName">o_load</obj_property>
+      <obj_property name="ObjectShortName">o_load</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/o_cs_n" type="logic">
+      <obj_property name="ElementShortName">o_cs_n</obj_property>
+      <obj_property name="ObjectShortName">o_cs_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_cntrl" type="array">
+      <obj_property name="ElementShortName">s_cntrl[0:110][7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_cntrl[0:110][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_pwrup_data_qty_array" type="array">
+      <obj_property name="ElementShortName">s_pwrup_data_qty_array[0:25]</obj_property>
+      <obj_property name="ObjectShortName">s_pwrup_data_qty_array[0:25]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_pwrup_dly_times_array" type="array">
+      <obj_property name="ElementShortName">s_pwrup_dly_times_array[0:25]</obj_property>
+      <obj_property name="ObjectShortName">s_pwrup_dly_times_array[0:25]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_scan_byte_en" type="array">
+      <obj_property name="ElementShortName">s_scan_byte_en[0:3][7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_scan_byte_en[0:3][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_local_seg_pos" type="other">
+      <obj_property name="ElementShortName">s_local_seg_pos</obj_property>
+      <obj_property name="ObjectShortName">s_local_seg_pos</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_row_vector_cnt" type="array">
+      <obj_property name="ElementShortName">s_row_vector_cnt[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_row_vector_cnt[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_scan_seg_cntr" type="other">
+      <obj_property name="ElementShortName">s_scan_seg_cntr</obj_property>
+      <obj_property name="ObjectShortName">s_scan_seg_cntr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_scan_seg_indx" type="other">
+      <obj_property name="ElementShortName">s_scan_seg_indx</obj_property>
+      <obj_property name="ObjectShortName">s_scan_seg_indx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_scan_byte_tx_cnt" type="other">
+      <obj_property name="ElementShortName">s_scan_byte_tx_cnt</obj_property>
+      <obj_property name="ObjectShortName">s_scan_byte_tx_cnt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/o_data" type="array">
+      <obj_property name="ElementShortName">o_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_current_state" type="other">
+      <obj_property name="ElementShortName">s_current_state</obj_property>
+      <obj_property name="ObjectShortName">s_current_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_next_state" type="other">
+      <obj_property name="ElementShortName">s_next_state</obj_property>
+      <obj_property name="ObjectShortName">s_next_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_curr_state_slow_clock" type="other">
+      <obj_property name="ElementShortName">s_curr_state_slow_clock</obj_property>
+      <obj_property name="ObjectShortName">s_curr_state_slow_clock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_curr_cmd_lnght" type="other">
+      <obj_property name="ElementShortName">s_curr_cmd_lnght</obj_property>
+      <obj_property name="ObjectShortName">s_curr_cmd_lnght</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_curr_indx" type="other">
+      <obj_property name="ElementShortName">s_curr_indx</obj_property>
+      <obj_property name="ObjectShortName">s_curr_indx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_curr_cmd_cnt" type="other">
+      <obj_property name="ElementShortName">s_curr_cmd_cnt</obj_property>
+      <obj_property name="ObjectShortName">s_curr_cmd_cnt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_total_cmd_cnt" type="other">
+      <obj_property name="ElementShortName">s_total_cmd_cnt</obj_property>
+      <obj_property name="ObjectShortName">s_total_cmd_cnt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_delay_ms" type="other">
+      <obj_property name="ElementShortName">s_delay_ms</obj_property>
+      <obj_property name="ObjectShortName">s_delay_ms</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_delay_cnt" type="other">
+      <obj_property name="ElementShortName">s_delay_cnt</obj_property>
+      <obj_property name="ObjectShortName">s_delay_cnt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_oe_data_sent" type="other">
+      <obj_property name="ElementShortName">s_oe_data_sent</obj_property>
+      <obj_property name="ObjectShortName">s_oe_data_sent</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_header_sent" type="other">
+      <obj_property name="ElementShortName">s_header_sent</obj_property>
+      <obj_property name="ObjectShortName">s_header_sent</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_data_byte_tx_cnt" type="other">
+      <obj_property name="ElementShortName">s_data_byte_tx_cnt</obj_property>
+      <obj_property name="ObjectShortName">s_data_byte_tx_cnt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_row_count" type="other">
+      <obj_property name="ElementShortName">s_row_count</obj_property>
+      <obj_property name="ObjectShortName">s_row_count</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_delay_reached" type="other">
+      <obj_property name="ElementShortName">s_delay_reached</obj_property>
+      <obj_property name="ObjectShortName">s_delay_reached</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_pwr_on_cntr" type="other">
+      <obj_property name="ElementShortName">s_pwr_on_cntr</obj_property>
+      <obj_property name="ObjectShortName">s_pwr_on_cntr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_delay_cs_cnt" type="other">
+      <obj_property name="ElementShortName">s_delay_cs_cnt</obj_property>
+      <obj_property name="ObjectShortName">s_delay_cs_cnt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_cs_hold_cnt" type="other">
+      <obj_property name="ElementShortName">s_cs_hold_cnt</obj_property>
+      <obj_property name="ObjectShortName">s_cs_hold_cnt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/CS_HOLD_HIGH_CNT" type="other">
+      <obj_property name="ElementShortName">CS_HOLD_HIGH_CNT</obj_property>
+      <obj_property name="ObjectShortName">CS_HOLD_HIGH_CNT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/b_address" type="array">
+      <obj_property name="ElementShortName">b_address[10:0]</obj_property>
+      <obj_property name="ObjectShortName">b_address[10:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/b_data_byte" type="array">
+      <obj_property name="ElementShortName">b_data_byte[7:0]</obj_property>
+      <obj_property name="ObjectShortName">b_data_byte[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_rd_en" type="logic">
+      <obj_property name="ElementShortName">s_rd_en</obj_property>
+      <obj_property name="ObjectShortName">s_rd_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/r_config" type="logic">
+      <obj_property name="ElementShortName">r_config</obj_property>
+      <obj_property name="ObjectShortName">r_config</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_config" type="logic">
+      <obj_property name="ElementShortName">s_config</obj_property>
+      <obj_property name="ObjectShortName">s_config</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_start_sm" type="logic">
+      <obj_property name="ElementShortName">s_start_sm</obj_property>
+      <obj_property name="ObjectShortName">s_start_sm</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/r_rstn" type="logic">
+      <obj_property name="ElementShortName">r_rstn</obj_property>
+      <obj_property name="ObjectShortName">r_rstn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/r_epaper_pwr_en" type="logic">
+      <obj_property name="ElementShortName">r_epaper_pwr_en</obj_property>
+      <obj_property name="ObjectShortName">r_epaper_pwr_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_cs_n" type="logic">
+      <obj_property name="ElementShortName">s_cs_n</obj_property>
+      <obj_property name="ObjectShortName">s_cs_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_blank" type="logic">
+      <obj_property name="ElementShortName">s_blank</obj_property>
+      <obj_property name="ObjectShortName">s_blank</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_toggle" type="logic">
+      <obj_property name="ElementShortName">s_toggle</obj_property>
+      <obj_property name="ObjectShortName">s_toggle</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_loop_cnt" type="other">
+      <obj_property name="ElementShortName">s_loop_cnt</obj_property>
+      <obj_property name="ObjectShortName">s_loop_cnt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/s_pwrup_st" type="other">
+      <obj_property name="ElementShortName">s_pwrup_st</obj_property>
+      <obj_property name="ObjectShortName">s_pwrup_st</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/i_rx_data" type="array">
+      <obj_property name="ElementShortName">i_rx_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">i_rx_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/i_rx_data_val" type="logic">
+      <obj_property name="ElementShortName">i_rx_data_val</obj_property>
+      <obj_property name="ObjectShortName">i_rx_data_val</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/c_num_init_commands" type="other">
+      <obj_property name="ElementShortName">c_num_init_commands</obj_property>
+      <obj_property name="ObjectShortName">c_num_init_commands</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/c_indices" type="other">
+      <obj_property name="ElementShortName">c_indices</obj_property>
+      <obj_property name="ObjectShortName">c_indices</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/c_dsply_bytes" type="other">
+      <obj_property name="ElementShortName">c_dsply_bytes</obj_property>
+      <obj_property name="ObjectShortName">c_dsply_bytes</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/c_half_row_bytes" type="other">
+      <obj_property name="ElementShortName">c_half_row_bytes</obj_property>
+      <obj_property name="ObjectShortName">c_half_row_bytes</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/c_scan_bytes" type="other">
+      <obj_property name="ElementShortName">c_scan_bytes</obj_property>
+      <obj_property name="ObjectShortName">c_scan_bytes</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/epaper_cntrl_inst/c_num_of_rows" type="other">
+      <obj_property name="ElementShortName">c_num_of_rows</obj_property>
+      <obj_property name="ObjectShortName">c_num_of_rows</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider74">
+      <obj_property name="label">debounce</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/pb_debouncer_inst/i_clk" type="logic">
+      <obj_property name="ElementShortName">i_clk</obj_property>
+      <obj_property name="ObjectShortName">i_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/pb_debouncer_inst/i_pb1" type="logic">
+      <obj_property name="ElementShortName">i_pb1</obj_property>
+      <obj_property name="ObjectShortName">i_pb1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/pb_debouncer_inst/o_pb1" type="logic">
+      <obj_property name="ElementShortName">o_pb1</obj_property>
+      <obj_property name="ObjectShortName">o_pb1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/pb_debouncer_inst/i_pb2" type="logic">
+      <obj_property name="ElementShortName">i_pb2</obj_property>
+      <obj_property name="ObjectShortName">i_pb2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/pb_debouncer_inst/o_pb2" type="logic">
+      <obj_property name="ElementShortName">o_pb2</obj_property>
+      <obj_property name="ObjectShortName">o_pb2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/pb_debouncer_inst/i_pb3" type="logic">
+      <obj_property name="ElementShortName">i_pb3</obj_property>
+      <obj_property name="ObjectShortName">i_pb3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/pb_debouncer_inst/o_pb3" type="logic">
+      <obj_property name="ElementShortName">o_pb3</obj_property>
+      <obj_property name="ObjectShortName">o_pb3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/pb_debouncer_inst/r_Debounce_Count" type="other">
+      <obj_property name="ElementShortName">r_Debounce_Count</obj_property>
+      <obj_property name="ObjectShortName">r_Debounce_Count</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/pb_debouncer_inst/r_PB1_State" type="logic">
+      <obj_property name="ElementShortName">r_PB1_State</obj_property>
+      <obj_property name="ObjectShortName">r_PB1_State</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/pb_debouncer_inst/r_PB2_State" type="logic">
+      <obj_property name="ElementShortName">r_PB2_State</obj_property>
+      <obj_property name="ObjectShortName">r_PB2_State</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/pb_debouncer_inst/r_PB3_State" type="logic">
+      <obj_property name="ElementShortName">r_PB3_State</obj_property>
+      <obj_property name="ObjectShortName">r_PB3_State</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/top_bc_inst/pb_debouncer_inst/DEBOUNCE_LIMIT" type="other">
+      <obj_property name="ElementShortName">DEBOUNCE_LIMIT</obj_property>
+      <obj_property name="ObjectShortName">DEBOUNCE_LIMIT</obj_property>
+   </wvobject>
+</wave_config>

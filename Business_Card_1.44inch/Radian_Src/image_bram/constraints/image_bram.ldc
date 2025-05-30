@@ -1,0 +1,23 @@
+set device "LIFCL-33"
+set device_int "jd5u27"
+set package "WLCSP84"
+set package_int "WLCSP84"
+set speed "8_High-Performance_1.0V"
+set speed_int "11"
+set operation "Commercial"
+set family "LIFCL"
+set architecture "je5d00"
+set partnumber "LIFCL-33-8USG84C"
+set WRAPPER_INST "lscc_distributed_rom_inst"
+set FAMILY "LIFCL"
+set RADDR_DEPTH 1536
+set RDATA_WIDTH 8
+set REGMODE "noreg"
+set RESETMODE "sync"
+set RADDR_WIDTH 11
+set INIT_MODE "mem_file"
+set INIT_FILE "C:/Users/zenop/OneDrive/Documents/Lattice-Radiant-FPGA-IDE/Adiuvo_BCard_proj/image_bram/misc/lattice_bram_image_data_image_bram_copy.mem"
+set INIT_FILE_FORMAT "hex"
+
+
+## Refer to the generated Post-Synthesis constraints at eval/constraint.pdc 

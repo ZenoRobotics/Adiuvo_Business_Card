@@ -1,0 +1,1 @@
+create_clock -name rd_clk_i -period 10 [get_ports rd_clk_i]
