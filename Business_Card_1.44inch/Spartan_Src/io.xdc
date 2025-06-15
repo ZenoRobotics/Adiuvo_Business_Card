@@ -5,6 +5,16 @@ set_property IOSTANDARD LVCMOS33 [get_ports i_clk]
 #set_property PACKAGE_PIN G4 [get_ports rst_n]
 #set_property IOSTANDARD LVCMOS33 [get_ports rst_n]
 
+#leds 0 thru 3
+set_property PACKAGE_PIN E11 [get_ports {o_led_config_n}]
+set_property IOSTANDARD LVCMOS33 [get_ports {o_led_config_n}]
+set_property PACKAGE_PIN M10 [get_ports {o_led_config_n_db}]
+set_property IOSTANDARD LVCMOS33 [get_ports {o_led_config_n_db}]
+#set_property PACKAGE_PIN A10 [get_ports {led[2]}]
+#set_property IOSTANDARD LVCMOS33 [get_ports {led[2]}]
+#set_property PACKAGE_PIN D12 [get_ports {led[3]}]
+#set_property IOSTANDARD LVCMOS33 [get_ports {led[3]}]
+
 #PMOD2
 #Pin 1
 set_property PACKAGE_PIN M14 [get_ports {o_rstn}]          
@@ -34,8 +44,8 @@ set_property PACKAGE_PIN P10 [get_ports {o_sclk}]
 set_property IOSTANDARD LVCMOS33 [get_ports {o_sclk}]
 
 #Push Buttons 0 thru 3
-set_property PACKAGE_PIN M5 [get_ports {i_config_btn}]
-set_property IOSTANDARD LVCMOS33 [get_ports {i_config_btn}]
+set_property PACKAGE_PIN M5 [get_ports {i_config_btn_n}]
+set_property IOSTANDARD LVCMOS33 [get_ports {i_config_btn_n}]
 #set_property PACKAGE_PIN L5 [get_ports {i_config_btn}]
 #set_property IOSTANDARD LVCMOS33 [get_ports {i_config_btn}]
 #set_property PACKAGE_PIN N4 [get_ports {i_clr_display}]

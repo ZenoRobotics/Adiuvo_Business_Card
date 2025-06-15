@@ -41,7 +41,8 @@ architecture rtl of epaper_cntrl is
 	constant c_half_row_bytes    : integer := 16;
 	constant c_scan_bytes        : integer := 24;
 	constant c_num_of_rows       : integer := 96;  -- (y) for 1.44" Display
-	constant C_ITERS          : integer := 4; -- changed from 4 to 2 for sim purposes PZ
+	constant c_simulation        : integer := 0;   -- 1 = True, 0 = False PZ
+	constant C_ITERS          : integer := 6; -- changed from 4 to 2 for sim purposes PZ
     constant CS_HOLD_HIGH_CNT : integer := 20;
     constant FRAME_DELAY      : integer := 500;
 	
@@ -171,7 +172,7 @@ architecture rtl of epaper_cntrl is
     signal r_config_n      : std_logic := '1';
     signal s_config        : std_logic := '0';
     signal s_start_sm      : std_logic := '0';
-	signal r_rstn          : std_logic := '0';
+	signal r_rstn          : std_logic := '1';
 	signal s_cs_n          : std_logic := '1';
 	signal s_blank         : std_logic := '0';
 	signal s_toggle        : std_logic := '0';
@@ -246,12 +247,10 @@ begin
             when run_state =>
                 if s_current_state /= idle then
                    s_start_sm <= '0';
-                   r_rstn     <= '1';     
-			       s_pwr_en   <= '1';
                    s_start_state <= stop_state;
                 end if;
             when stop_state =>
-                if s_current_state = pwr_off_pins_state then
+                if s_run_again = 1 then
                    r_rstn   <= '0';   
 			       s_pwr_en <= '0';
 			       s_start_state <= wait_state;
@@ -314,7 +313,6 @@ begin
 				   s_row_count <= 0;
 				   s_half_byte_state <= 0;
 				   s_curr_row_addr_max_indx <= 15;
-				   s_iter_cnt <= 0;
                 end if;
 				
 		    --- Start of CoG Initialization ---
@@ -519,6 +517,7 @@ begin
                        s_header_sent <= 0;				   
                        s_current_state <= cs_delay_state;
 					   s_cs_hold_cnt <= CS_HOLD_HIGH_CNT;
+					   b_data_byte_neg <= not b_data_byte;
 					   s_next_state <= data_byte_half_row;
 					   s_cs_n <= '1';
 				   end if;
@@ -548,11 +547,19 @@ begin
 					--elsif s_iter_cnt >= C_ITERS - 4 then
 					--    o_data  <= x"aa";
 					else 
-					   if s_half_byte_state = 0 then --first half of row scan: 127 -> 1 or relative to indices 126->0
-					      o_data  <= '1' & b_data_byte(1) & '1' & b_data_byte(3) &  '1' & b_data_byte(5) & '1' & b_data_byte(7);
-					   else   -- second half of row scan: 2-> 128 or relative to indices 1->127
-					      o_data  <= '1' & b_data_byte(6) & '1' & b_data_byte(4) &  '1' & b_data_byte(2) & '1' & b_data_byte(0);
-					   end if;
+					    if s_iter_cnt >= C_ITERS/2 then --draw black pixels white, and white pixels black
+					       if s_half_byte_state = 0 then --first half of row scan: 127 -> 1 or relative to indices 126->0
+					          o_data  <= '1' & b_data_byte_neg(1) & '1' & b_data_byte_neg(3) &  '1' & b_data_byte_neg(5) & '1' & b_data_byte_neg(7);
+					       else   -- second half of row scan: 2-> 128 or relative to indices 1->127
+						      o_data  <= '1' & b_data_byte_neg(6) & '1' & b_data_byte_neg(4) &  '1' & b_data_byte_neg(2) & '1' & b_data_byte_neg(0);
+						   end if;
+					    else    
+					       if s_half_byte_state = 0 then --first half of row scan: 127 -> 1 or relative to indices 126->0
+					          o_data  <= '1' & b_data_byte(1) & '1' & b_data_byte(3) &  '1' & b_data_byte(5) & '1' & b_data_byte(7);
+					       else   -- second half of row scan: 2-> 128 or relative to indices 1->127
+						      o_data  <= '1' & b_data_byte(6) & '1' & b_data_byte(4) &  '1' & b_data_byte(2) & '1' & b_data_byte(0);
+						   end if;
+						end if;
 					end if;
 					--else
 					    --if s_toggle = '0' then
@@ -707,7 +714,7 @@ begin
                        -- Adding frameRepeat Delay could be a function of Temp
 					   s_current_state <= delay_state;    -- go to send frame data loop
 					   s_next_state <= send_data_cmd_byte;
-					   if SIMULATION = 1 then
+					   if c_simulation = 1 then
 			               s_delay_ms <= 5;
 			           else 
 			               s_delay_ms <= FRAME_DELAY; -- Frame Delay
@@ -792,10 +799,10 @@ begin
 				
 			when pwr_off_pins_state =>
 			    if  s_cs_n = '1' then
-			        s_current_state <= delay_state;    
+			        s_current_state <= delay_state;    -- go to send frame data loop
 					s_next_state <= pwr_off_pins_state;
                 	s_cs_n <= '0';
-                	if SIMULATION = 1 then
+                	if c_simulation = 1 then
 			            s_delay_ms <= 5;
 			        else 
 			            s_delay_ms <= 150; 

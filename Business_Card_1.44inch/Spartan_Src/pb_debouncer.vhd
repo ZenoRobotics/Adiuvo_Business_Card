@@ -69,7 +69,7 @@ begin
         r_PB1_State <= i_pb1;
         r_PB2_State <= i_pb2;
         r_PB3_State <= i_pb3;
-        
+        r_Debounce_Count <= 0;        
       -- Switches are the same state, reset the counter
       else
         r_Debounce_Count <= 0;

@@ -7,9 +7,9 @@ entity top_bc is generic(
     SIMULATION : integer := 0  -- true = 1, false = 0   Used to shorten delays for simulation
 );
     port(
-        i_clk  : in std_logic;  -- 100 MHz
+        i_clk         : in std_logic;  -- 100 MHz
 		-- user interface
-		i_config_btn: in std_logic;
+		i_config_btn_n: in std_logic;
 		-- control interface 
 		--o_pwm_clk_vgl : out std_logic := '0';
         o_rstn : out std_logic := '1';
@@ -22,6 +22,8 @@ entity top_bc is generic(
         o_mosi : out std_logic;
 		i_miso : in  std_logic;
 		-- debug
+		o_led_config_n : out std_logic;
+		o_led_config_n_db : out std_logic;
 		o_uart_tx : out std_logic
        
     );      
@@ -37,22 +39,23 @@ architecture rtl of top_bc is
     --(10000000)/(115200) = 868
     constant c_CLKS_PER_BIT : integer := 217;  -- 25 MHz
 
-    signal s_load : std_logic;
-    signal s_data : std_logic_vector(7 downto 0);
+    signal s_load     : std_logic;
+    signal s_data     : std_logic_vector(7 downto 0);
     signal s_rx_data  : std_logic_vector(7 downto 0);
     signal s_rx_rd_rqst  : std_logic;
 	signal s_rx_data_val : std_logic;
-    signal s_busy     : std_logic;
-    signal s_done     : std_logic;
-    signal s_tx_active : std_logic;
-    signal s_tx_done   : std_logic;
-	--signal s_cs_n     : std_logic;
-    signal s_pb_db    : std_logic;
-    signal s_config_btn_db: std_logic;
-	signal s_pb2_o_null   : std_logic;
-	signal s_pb3_o_null   : std_logic;
-	signal s_clk_1kHz  : std_logic;
-    signal s_led0_blue : std_logic;
+    signal s_busy        : std_logic;
+    signal s_done        : std_logic;
+    signal s_tx_active   : std_logic;
+    signal s_tx_done     : std_logic;
+	--signal s_cs_n      : std_logic;
+    signal s_pb_db       : std_logic;
+    signal s_config_btn_n_db: std_logic;
+    signal s_config_btn_n   : std_logic;
+	signal s_pb2_o_null     : std_logic;
+	signal s_pb3_o_null     : std_logic;
+	signal s_clk_1kHz       : std_logic;
+    signal s_led0_blue      : std_logic;
     
         -- signals to convert 100 MHz input clock to 25 MHz system clock as found on Lattice BC board
     signal r_Clock_Count : integer range 0 to 3 := 0;
@@ -69,6 +72,9 @@ begin
 	--o_ir_led     <= s_led0_blue;
 	--o_led0_blue  <= s_led0_blue;
 	--o_pwm_clk_vgl <= r_clk_200khz;
+	s_config_btn_n <= not i_config_btn_n;
+	o_led_config_n <= not i_config_btn_n;
+	o_led_config_n_db <= s_config_btn_n_db;
 	
 spi_op_inst : entity work.spi_op
     generic map (
@@ -109,7 +115,7 @@ port map(
 	i_rx_data_val => s_rx_data_val,
 	o_rx_rd_rqst => s_rx_rd_rqst,
 	-- control signals
-	i_config     => s_config_btn_db,
+	i_config_n   => s_config_btn_n_db,
 	o_rstn       => o_rstn,
     i_busy       => i_busy,
 	o_epaper_pwr_en => o_epaper_pwr_en,
@@ -125,8 +131,8 @@ port map(
     
  pb_debouncer_inst : entity work.pb_debouncer port map(
     i_clk   => s_clk_1kHz,
-    i_pb1   => i_config_btn,
-    o_pb1   => s_config_btn_db,
+    i_pb1   => s_config_btn_n,
+    o_pb1   => s_config_btn_n_db,
     i_pb2   => '0',
     o_pb2   => s_pb2_o_null,
     i_pb3   => '0',
