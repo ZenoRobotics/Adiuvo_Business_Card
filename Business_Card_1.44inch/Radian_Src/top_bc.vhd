@@ -8,7 +8,7 @@ entity top_bc is generic(
     port(
         i_clk  : in std_logic;  --25 MHz
 		-- user interface
-		i_config_btn: in std_logic;
+		i_config_btn_n : in std_logic;
 		-- control interface 
         o_rstn : out std_logic := '1';
         i_busy : in  std_logic;
@@ -43,11 +43,9 @@ architecture rtl of top_bc is
     signal s_busy     : std_logic;
     signal s_done     : std_logic;
 	
-	--signal s_cs_n     : std_logic;
-    signal s_pb_db    : std_logic;
-    signal s_config_btn_db: std_logic;
-	signal s_pb2_o_null   : std_logic;
-	signal s_pb3_o_null   : std_logic;
+    signal s_config_btn_n_db : std_logic;
+	signal s_pb2_o_null      : std_logic;
+	signal s_pb3_o_null      : std_logic;
 	signal s_clk_1kHz  : std_logic;
 	signal s_clk_2kHz  : std_logic;
     signal s_led0_blue : std_logic;
@@ -103,7 +101,7 @@ spi_op_inst : entity work.spi_op
 	i_rx_data_val => s_spi_rx_data_val,
 	o_rx_rd_rqst => s_spi_rx_rd_rqst,
 	-- control signals
-	i_config     => s_config_btn_db,
+	i_config_n   => s_config_btn_n_db,
 	o_rstn       => o_rstn,
     i_busy       => '0', --i_busy,
 	o_epaper_pwr_en => o_epaper_pwr_en,
@@ -119,8 +117,8 @@ spi_op_inst : entity work.spi_op
     
  pb_debouncer_inst : entity work.pb_debouncer port map(
     i_clk   => s_clk_1kHz,
-    i_pb1   => i_config_btn,
-    o_pb1   => s_config_btn_db,
+    i_pb1   => i_config_btn_n,
+    o_pb1   => s_config_btn_n_db,
     i_pb2   => '1',
     o_pb2   => s_pb2_o_null,
     i_pb3   => '1',

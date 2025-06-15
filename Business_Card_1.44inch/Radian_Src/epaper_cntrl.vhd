@@ -15,7 +15,7 @@ entity epaper_cntrl is generic(
 		i_rx_data_val : in std_logic;
 		o_rx_rd_rqst  : out std_logic := '0';
         -- control interface 
-		i_config    : in std_logic;
+		i_config_n  : in std_logic;
         o_rstn      : out std_logic;
         i_busy      : in std_logic;
 		o_epaper_pwr_en : out std_logic := '1';
@@ -41,8 +41,7 @@ architecture rtl of epaper_cntrl is
 	constant c_half_row_bytes    : integer := 16;
 	constant c_scan_bytes        : integer := 24;
 	constant c_num_of_rows       : integer := 96;  -- (y) for 1.44" Display
-	constant c_simulation        : integer := 0;   -- 1 = True, 0 = False PZ
-	constant C_ITERS          : integer := 2; -- 1 for blank + 1 for draw
+	constant C_ITERS          : integer := 4; -- changed from 4 to 2 for sim purposes PZ
     constant CS_HOLD_HIGH_CNT : integer := 20;
     constant FRAME_DELAY      : integer := 500;
 	
@@ -57,6 +56,8 @@ architecture rtl of epaper_cntrl is
 					    data_byte_half_row, data_byte_end, scan_byte_send, scan_byte_sent,
 					    send_border_byte, border_byte_end, turn_on_oe, oe_cmd_end, delay_state, cs_delay_state,
 						pwr_off_cmds, wait_pwr_off_cmd_end, pwr_off_data, wait_pwr_off_data_end, pwr_off_pins_state);
+						
+	type start_stop_fsm is (wait_state, delay_state, run_state, stop_state);
      
     --------------------------------------------------------------------------------------------------
     -- E-paper display COG driver interface cmd + data storage and use. For 1.44" EPD with G2 COG and
@@ -147,6 +148,8 @@ architecture rtl of epaper_cntrl is
 	signal s_header_sent    : integer := 0;
 	signal s_num_bytes_sent : integer := 0;
 	
+	signal s_start_state    : start_stop_fsm := wait_state;
+	
     signal s_data_byte_tx_cnt      : integer := 0; 
 	signal s_scan_byte_tx_cnt      : integer := 0;
 	signal s_half_byte_state  : integer := 0;   -- Data is compressed in bram, so need to expand half byte into a byte 0=lft nibble, 1=rght nibble
@@ -162,22 +165,24 @@ architecture rtl of epaper_cntrl is
 	signal s_cs_hold_cnt    : integer range 0 to 1000 := 0; 
 
  
-    signal b_address       : std_logic_vector(10 downto 0);
-	signal uns_b_address   : unsigned(10 downto 0);
+    signal uns_b_address   : unsigned(10 downto 0);
     signal b_data_byte     : std_logic_vector(7 downto 0);
-    signal r_config        : std_logic := '0';
+    signal b_data_byte_neg : std_logic_vector(7 downto 0);
+    signal r_config_n      : std_logic := '1';
     signal s_config        : std_logic := '0';
     signal s_start_sm      : std_logic := '0';
-	signal r_rstn          : std_logic := '1';
+	signal r_rstn          : std_logic := '0';
 	signal s_cs_n          : std_logic := '1';
 	signal s_blank         : std_logic := '0';
 	signal s_toggle        : std_logic := '0';
-	signal s_pwr_en        : std_logic := '1';
+	signal s_pwr_en        : std_logic := '0';
 	signal s_discharge     : std_logic := '0';
 	signal s_pwrup_st      : integer := 0;
 	signal s_loop_cnt      : integer range 0 to 7 := 0;
+	signal s_run_again     : integer range 0 to 7 := 0;
 	
 	signal s_iter_cnt      : integer range 0 to 10 := 0;
+	signal s_restart_full_loop  : integer := 0;
 	signal s_curr_row_addr_max_indx : integer := 0;
 	
 	
@@ -185,6 +190,7 @@ architecture rtl of epaper_cntrl is
 	signal s_rx_data_val : std_logic := '0';
 	signal r_rx_data_val : std_logic := '0';
 	signal r_rx_data     : std_logic_vector(7 downto 0) := (others=>'0');
+
 
 
 begin 
@@ -217,34 +223,55 @@ o_epaper_pwr_en <= s_pwr_en;
 o_cs_n <= s_cs_n;
 o_discharge <= s_discharge;
 
--- powerup resetn to epaper
--- ** change to single run **
--- ** iterations already happen inside SM **
+-- power up resetn to epaper
 process(i_clk)
 begin
-   if rising_edge(i_clk) then  
-      r_config <= i_config;  
-	  --negedge of user input i_config (debounced pb) detected?
-      if i_config = '0' and r_config = '1' then 
-            s_start_sm <= '0'; 
-            r_rstn     <= '0';   -- reset enabled
-			s_pwr_en   <= '1';   -- power enabled
-			r_delay_ms <=  5;    -- 5 ms delay for reset
-	  -- returned from delay after negedge of user input?
-	  elsif s_delay_reached = 1 and r_delay_ms >  0 and s_current_state = idle then -- rstn delay occurred?
-	        r_rstn   <= '1';     -- disable reset
-			s_pwr_en <= '1';     -- keep power enabled
-			r_delay_ms <= 0;
-			s_start_sm <= '1'; 
-      elsif s_start_sm = '0' and s_current_state = idle and r_delay_ms = 0 then -- next state after rstn delay occurrence
-	        s_start_sm <= '1';  
-            r_rstn     <= '0'; 
-			s_pwr_en   <= '0';
-	  elsif s_current_state /= idle then
-  	        s_start_sm <= '0';
-      end if;
-    end if;
+    if rising_edge(i_clk) then 
+        r_config_n <= i_config_n;  
+	    s_pos_edge_delay_reached <= s_delay_reached;
+        case s_start_state is 
+            when wait_state => 
+               if i_config_n = '0' and r_config_n = '1' then --negedge of user input i_config (debounced pb)
+                  s_start_sm <= '0';  -- start state_machine
+                  s_config   <= '1';
+			      s_toggle   <= '0';
+                  r_rstn     <= '0';   
+			      s_pwr_en   <= '1';
+			      r_delay_ms <= 5; -- 5ms delay
+			      s_loop_cnt <= 0;
+			      s_start_state <= delay_state;
+			    else
+			      r_rstn     <= '0';   
+			      s_pwr_en   <= '0';
+			      s_start_sm <= '0';
+			      s_start_state <= wait_state;
+			    end if;  
+            when delay_state =>  
+                if (s_delay_reached = 1) and (r_delay_ms > 0) and (s_current_state = idle) then -- rstn delay occurred?
+	              r_rstn     <= '1';     -- disable reset
+			      s_pwr_en   <= '1';     -- keep power enabled
+			      r_delay_ms <= 0;
+			      s_start_sm <= '1'; 
+                  s_start_state <= run_state;
+			    end if;
+            when run_state =>
+                if s_current_state /= idle then
+                   s_start_sm <= '0';
+                   r_rstn     <= '1';     
+			       s_pwr_en   <= '1';
+                   s_start_state <= stop_state;
+                end if;
+            when stop_state =>
+                if s_current_state = pwr_off_pins_state then
+                   r_rstn   <= '0';   
+			       s_pwr_en <= '0';
+			       s_start_state <= wait_state;
+			    end if;
+			when others => null;
+        end case; 
+     end if;
 end process;
+
 
 -- ms delay procedure --
 process(i_ms_dly_clk)
@@ -298,11 +325,13 @@ begin
 				   s_row_count <= 0;
 				   s_half_byte_state <= 0;
 				   s_curr_row_addr_max_indx <= 15;
+				   s_iter_cnt <= 0;
                 end if;
 				
 		    --- Start of CoG Initialization ---
 			--- Get and Check CoG ID ---
 			when spi_rd_state =>
+			    s_run_again <= 0; --reset count for now
 			    o_rx_rd_rqst <= '0';
 			    if i_busy = '0' or r_rx_data_val = '1' then
 			       if s_num_bytes_sent = 0 then
@@ -530,11 +559,11 @@ begin
 					--elsif s_iter_cnt >= C_ITERS - 4 then
 					--    o_data  <= x"aa";
 					else 
-					    if s_half_byte_state = 0 then --first half of row scan: 127 -> 1 or relative to indices 126->0
-					        o_data  <= '1' & b_data_byte(1) & '1' & b_data_byte(3) &  '1' & b_data_byte(5) & '1' & b_data_byte(7);
-					    else   -- second half of row scan: 2-> 128 or relative to indices 1->127
-						    o_data  <= '1' & b_data_byte(6) & '1' & b_data_byte(4) &  '1' & b_data_byte(2) & '1' & b_data_byte(0);
-						end if;
+					   if s_half_byte_state = 0 then --first half of row scan: 127 -> 1 or relative to indices 126->0
+					      o_data  <= '1' & b_data_byte(1) & '1' & b_data_byte(3) &  '1' & b_data_byte(5) & '1' & b_data_byte(7);
+					   else   -- second half of row scan: 2-> 128 or relative to indices 1->127
+					      o_data  <= '1' & b_data_byte(6) & '1' & b_data_byte(4) &  '1' & b_data_byte(2) & '1' & b_data_byte(0);
+					   end if;
 					end if;
 					--else
 					    --if s_toggle = '0' then
@@ -689,7 +718,7 @@ begin
                        -- Adding frameRepeat Delay could be a function of Temp
 					   s_current_state <= delay_state;    -- go to send frame data loop
 					   s_next_state <= send_data_cmd_byte;
-					   if c_simulation = 1 then
+					   if SIMULATION = 1 then
 			               s_delay_ms <= 5;
 			           else 
 			               s_delay_ms <= FRAME_DELAY; -- Frame Delay
@@ -774,10 +803,10 @@ begin
 				
 			when pwr_off_pins_state =>
 			    if  s_cs_n = '1' then
-			        s_current_state <= delay_state;    -- go to send frame data loop
+			        s_current_state <= delay_state;    
 					s_next_state <= pwr_off_pins_state;
                 	s_cs_n <= '0';
-                	if c_simulation = 1 then
+                	if SIMULATION = 1 then
 			            s_delay_ms <= 5;
 			        else 
 			            s_delay_ms <= 150; 
@@ -787,6 +816,7 @@ begin
 				    s_current_state <= idle;
 					s_next_state <= idle;
 				    s_discharge <= '0';
+				    s_run_again <= s_run_again + 1;
 				end if;
 			--- End of CoG Powerdown ---
 			

@@ -7,22 +7,20 @@ end;
 
 architecture bench of tb_top is
   -- Clock period
-  constant clk_period : time := 10 ns; -- feeding with 100 MHz clock, same as Leo Board.
+  constant clk_period : time := 10 ns;
   -- Generics
   -- Ports
-  signal i_clk        : std_logic:='0';
-  signal o_rstn       : std_logic:='1';
-  signal i_config_btn : std_logic;
-  signal o_csn        : std_logic;
+  signal i_clk          : std_logic:='0';
+  signal o_rstn         : std_logic:='1';
+  signal i_config_btn_n : std_logic;
+  signal o_csn          : std_logic;
   signal o_done : std_logic;
   signal o_mosi : std_logic;
   signal i_miso : std_logic;
   signal o_sclk : std_logic;
   
   signal o_data : std_logic_vector(7 downto 0);
-  signal o_epaper_pwr_en : std_logic;
-  signal o_epaper_discharge : std_logic;
-  signal s_uart_tx : std_logic;
+
 
 
   --type mem_array is array (0 to 8191) of std_logic_vector(7 downto 0);
@@ -31,22 +29,15 @@ architecture bench of tb_top is
 begin
 
   top_bc_inst : entity work.top_bc
-  generic map (
-      SIMULATION => 1
-  )
   port map (
     i_clk => i_clk,
-    i_config_btn => i_config_btn,
+    i_config_btn_n => i_config_btn_n,
     o_rstn => o_rstn,
     i_busy =>'0',
-    o_epaper_pwr_en => o_epaper_pwr_en,
-    o_epaper_discharge => o_epaper_discharge,
     o_csn => o_csn,
     o_mosi => o_mosi,
-	i_miso => '1',
-    o_sclk => o_sclk,
-    -- debug
-    o_uart_tx => s_uart_tx
+	i_miso => i_miso,
+    o_sclk => o_sclk
   );
   
   
@@ -66,14 +57,14 @@ i_clk <= not i_clk after clk_period/2;
 
 process 
 begin
-    i_config_btn <= '1';
+    i_config_btn_n <= '1';
 	wait until rising_edge(i_clk);
     wait for 1000000 ns;
     wait until rising_edge(i_clk);
-    i_config_btn <= '0';
-    wait for 10000000 ns;
+    i_config_btn_n <= '0';
+    wait for 16000000 ns;
     wait until rising_edge(i_clk);
-    i_config_btn <= '1';
+    i_config_btn_n <= '1';
     wait until rising_edge(o_done);
     report "simulation complete" severity failure;
 
