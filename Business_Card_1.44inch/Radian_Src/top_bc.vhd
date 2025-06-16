@@ -101,7 +101,7 @@ spi_op_inst : entity work.spi_op
 	i_rx_data_val => s_spi_rx_data_val,
 	o_rx_rd_rqst => s_spi_rx_rd_rqst,
 	-- control signals
-	i_config_n   => s_config_btn_n_db,
+	i_config_n   => i_config_btn_n, --s_config_btn_n_db,
 	o_rstn       => o_rstn,
     i_busy       => i_busy,
 	o_epaper_pwr_en => o_epaper_pwr_en,

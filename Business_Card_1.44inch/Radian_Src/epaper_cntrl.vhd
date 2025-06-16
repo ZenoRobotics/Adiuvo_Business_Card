@@ -44,6 +44,7 @@ architecture rtl of epaper_cntrl is
 	constant C_ITERS          : integer := 4; -- changed from 4 to 2 for sim purposes PZ
     constant CS_HOLD_HIGH_CNT : integer := 20;
     constant FRAME_DELAY      : integer := 500;
+	constant NUM_REPEAT_STARTS : integer := 12;
 	
 	-- Arrays
     type t_memory   is array (0 to c_num_init_commands-1)   of std_logic_vector(7 downto 0); -- stores control commands
@@ -57,7 +58,7 @@ architecture rtl of epaper_cntrl is
 					    send_border_byte, border_byte_end, turn_on_oe, oe_cmd_end, delay_state, cs_delay_state,
 						pwr_off_cmds, wait_pwr_off_cmd_end, pwr_off_data, wait_pwr_off_data_end, pwr_off_pins_state);
 						
-	type start_stop_fsm is (wait_state, delay_state, run_state, stop_state);
+	type start_stop_fsm is (wait_state, delay_state, repeat_start_state, run_state, stop_state);
      
     --------------------------------------------------------------------------------------------------
     -- E-paper display COG driver interface cmd + data storage and use. For 1.44" EPD with G2 COG and
@@ -162,6 +163,7 @@ architecture rtl of epaper_cntrl is
 	signal s_pwr_on_cntr    : integer range 0 to 12 := 0;
 	signal s_delay_cs_cnt   : integer range 0 to 1001 := 0; 
 	signal s_cs_hold_cnt    : integer range 0 to 1000 := 0; 
+	signal s_repeat_start_cnt : integer range 0 to 20 := 0;
 
  
     signal uns_b_address   : unsigned(10 downto 0);
@@ -215,7 +217,7 @@ begin
 	
 -- delay times are for after the sending of the cmd and data in that index
 s_pwrup_dly_times_array <= (0,0,0,0,0,0,0,0,5,5,5,5,0,0,0,0,5,0,0,5) when SIMULATION = 1 else
-                           (0,0,0,0,0,0,0,0,10,140,80,35,0,0,0,0,300,0,0,50); -- non-sim values
+                           (0,0,0,0,0,0,0,0,10,140,90,40,0,0,0,0,300,0,0,50); -- non-sim values
  
 o_rstn   <= r_rstn; --epaper resetn
 o_epaper_pwr_en <= s_pwr_en;
@@ -230,7 +232,7 @@ begin
 	    s_pos_edge_delay_reached <= s_delay_reached;
         case s_start_state is 
             when wait_state => 
-               if i_config_n = '0' and r_config_n = '1' then --negedge of user input i_config (debounced pb)
+               if (i_config_n = '0' and r_config_n = '1') or (s_repeat_start_cnt > 0) then --negedge of user input i_config (debounced pb)
                   s_start_sm <= '0';  -- start state_machine
                   s_config   <= '1';
 			      s_toggle   <= '0';
@@ -238,6 +240,7 @@ begin
 			      s_pwr_en   <= '1';
 			      r_delay_ms <= 5; -- 5ms delay
 			      s_loop_cnt <= 0;
+				  s_repeat_start_cnt <= s_repeat_start_cnt + 1;
 			      s_start_state <= delay_state;
 			    else
 			      r_rstn     <= '0';   
@@ -251,8 +254,22 @@ begin
 			      s_pwr_en   <= '1';     -- keep power enabled
 			      r_delay_ms <= 0;
 			      s_start_sm <= '1'; 
-                  s_start_state <= run_state;
+                  s_start_state <= repeat_start_state;
 			    end if;
+			when repeat_start_state =>
+			    if (s_repeat_start_cnt = NUM_REPEAT_STARTS) and (s_current_state = spi_rd_state) then
+				   r_rstn     <= '1';     -- disable reset
+			       s_pwr_en   <= '1';     -- keep power enabled
+			       r_delay_ms <= 0;
+			       s_start_sm <= '1'; 
+                   s_start_state <= run_state;
+				 elsif (s_repeat_start_cnt < NUM_REPEAT_STARTS) and (s_current_state = spi_rd_state) then
+				   s_repeat_start_cnt <= s_repeat_start_cnt + 1;
+				   r_rstn     <= '0';   
+			       s_pwr_en   <= '0';
+			       s_start_sm <= '0';
+			       s_start_state <= wait_state;
+				 end if;
             when run_state =>
                 if s_current_state /= idle then
                    s_start_sm <= '0';
@@ -264,6 +281,7 @@ begin
                 if s_current_state = pwr_off_pins_state then
                    r_rstn   <= '0';   
 			       s_pwr_en <= '0';
+				   s_repeat_start_cnt <= 0;
 			       s_start_state <= wait_state;
 			    end if;
 			when others => null;
