@@ -103,7 +103,7 @@ spi_op_inst : entity work.spi_op
 	-- control signals
 	i_config_n   => s_config_btn_n_db,
 	o_rstn       => o_rstn,
-    i_busy       => '0', --i_busy,
+    i_busy       => i_busy,
 	o_epaper_pwr_en => o_epaper_pwr_en,
 	o_discharge  => o_epaper_discharge,
 	-- spi control/handshake signals

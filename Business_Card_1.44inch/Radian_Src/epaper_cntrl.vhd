@@ -127,8 +127,7 @@ architecture rtl of epaper_cntrl is
 	-- number of data bytes in each command instruction row of s_cntrl
 	signal s_pwrup_data_qty_array : t_indx_cnt:= (4,4,11,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4);  
 	-- delay times are for after the sending of the cmd and data in that index
-	--signal s_pwrup_dly_times_array: t_indx_cnt := (0,0,0,0,0,0,0,0,5,160,95,45,0,0,0,0,300,0,0,50); -- non-sim values
-	signal s_pwrup_dly_times_array: t_indx_cnt; --:= (0,0,0,0,0,0,0,0,5,5,5,5,0,0,0,0,5,0,0,5);  -- simulation values PZ
+	signal s_pwrup_dly_times_array: t_indx_cnt;
 	  
 	
 	signal s_scan_byte_en   : t_scan_byte_en := ( x"03", x"0C", x"30", x"C0" );
@@ -216,7 +215,7 @@ begin
 	
 -- delay times are for after the sending of the cmd and data in that index
 s_pwrup_dly_times_array <= (0,0,0,0,0,0,0,0,5,5,5,5,0,0,0,0,5,0,0,5) when SIMULATION = 1 else
-                           (0,0,0,0,0,0,0,0,5,160,95,45,0,0,0,0,300,0,0,50); -- non-sim values
+                           (0,0,0,0,0,0,0,0,10,140,80,35,0,0,0,0,300,0,0,50); -- non-sim values
  
 o_rstn   <= r_rstn; --epaper resetn
 o_epaper_pwr_en <= s_pwr_en;
