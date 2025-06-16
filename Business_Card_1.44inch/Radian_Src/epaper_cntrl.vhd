@@ -43,8 +43,8 @@ architecture rtl of epaper_cntrl is
 	constant c_num_of_rows       : integer := 96;  -- (y) for 1.44" Display
 	constant C_ITERS          : integer := 4; -- changed from 4 to 2 for sim purposes PZ
     constant CS_HOLD_HIGH_CNT : integer := 20;
-    constant FRAME_DELAY      : integer := 500;
-	constant NUM_REPEAT_STARTS : integer := 12;
+    constant FRAME_DELAY      : integer := 200;
+	constant NUM_REPEAT_STARTS : integer := 8;
 	
 	-- Arrays
     type t_memory   is array (0 to c_num_init_commands-1)   of std_logic_vector(7 downto 0); -- stores control commands
@@ -170,7 +170,6 @@ architecture rtl of epaper_cntrl is
     signal b_data_byte     : std_logic_vector(7 downto 0);
     signal b_data_byte_neg : std_logic_vector(7 downto 0);
     signal r_config_n      : std_logic := '1';
-    signal s_config        : std_logic := '0';
     signal s_start_sm      : std_logic := '0';
 	signal r_rstn          : std_logic := '0';
 	signal s_cs_n          : std_logic := '1';
@@ -234,8 +233,7 @@ begin
             when wait_state => 
                if (i_config_n = '0' and r_config_n = '1') or (s_repeat_start_cnt > 0) then --negedge of user input i_config (debounced pb)
                   s_start_sm <= '0';  -- start state_machine
-                  s_config   <= '1';
-			      s_toggle   <= '0';
+                  s_toggle   <= not s_toggle;
                   r_rstn     <= '0';   
 			      s_pwr_en   <= '1';
 			      r_delay_ms <= 5; -- 5ms delay
@@ -252,19 +250,18 @@ begin
                 if (s_delay_reached = 1) and (r_delay_ms > 0) and (s_current_state = idle) then -- rstn delay occurred?
 	              r_rstn     <= '1';     -- disable reset
 			      s_pwr_en   <= '1';     -- keep power enabled
-			      r_delay_ms <= 0;
+			      r_delay_ms <=  0;
 			      s_start_sm <= '1'; 
                   s_start_state <= repeat_start_state;
 			    end if;
 			when repeat_start_state =>
-			    if (s_repeat_start_cnt = NUM_REPEAT_STARTS) and (s_current_state = spi_rd_state) then
+			    if (s_repeat_start_cnt = NUM_REPEAT_STARTS) then
 				   r_rstn     <= '1';     -- disable reset
 			       s_pwr_en   <= '1';     -- keep power enabled
 			       r_delay_ms <= 0;
 			       s_start_sm <= '1'; 
                    s_start_state <= run_state;
-				 elsif (s_repeat_start_cnt < NUM_REPEAT_STARTS) and (s_current_state = spi_rd_state) then
-				   s_repeat_start_cnt <= s_repeat_start_cnt + 1;
+				 elsif (s_repeat_start_cnt < NUM_REPEAT_STARTS) then
 				   r_rstn     <= '0';   
 			       s_pwr_en   <= '0';
 			       s_start_sm <= '0';
@@ -281,7 +278,7 @@ begin
                 if s_current_state = pwr_off_pins_state then
                    r_rstn   <= '0';   
 			       s_pwr_en <= '0';
-				   s_repeat_start_cnt <= 0;
+				   s_repeat_start_cnt <= 1;
 			       s_start_state <= wait_state;
 			    end if;
 			when others => null;
@@ -574,12 +571,20 @@ begin
 					    o_data  <= x"aa";
 						--o_data  <=  x"00"; --x"00"; -- no change or nothing
 					--elsif s_iter_cnt >= C_ITERS - 4 then
-					--    o_data  <= x"aa";
+					--    o_data  <= x"aa";                    end if;
 					else 
-					   if s_half_byte_state = 0 then --first half of row scan: 127 -> 1 or relative to indices 126->0
-					      o_data  <= '1' & b_data_byte(1) & '1' & b_data_byte(3) &  '1' & b_data_byte(5) & '1' & b_data_byte(7);
-					   else   -- second half of row scan: 2-> 128 or relative to indices 1->127
-					      o_data  <= '1' & b_data_byte(6) & '1' & b_data_byte(4) &  '1' & b_data_byte(2) & '1' & b_data_byte(0);
+					   if s_toggle = '0' then
+					      if s_half_byte_state = 0 then --first half of row scan: 127 -> 1 or relative to indices 126->0
+					         o_data  <= '1' & b_data_byte(1) & '1' & b_data_byte(3) &  '1' & b_data_byte(5) & '1' & b_data_byte(7);
+					      else   -- second half of row scan: 2-> 128 or relative to indices 1->127
+					         o_data  <= '1' & b_data_byte(6) & '1' & b_data_byte(4) &  '1' & b_data_byte(2) & '1' & b_data_byte(0);
+					      end if;
+					   else  -- invert black and white
+					      if s_half_byte_state = 0 then --first half of row scan: 127 -> 1 or relative to indices 126->0
+					         o_data  <= '1' & (not b_data_byte(1)) & '1' & (not b_data_byte(3)) &  '1' & (not b_data_byte(5)) & '1' & (not b_data_byte(7));
+					      else   -- second half of row scan: 2-> 128 or relative to indices 1->127
+					         o_data  <= '1' & (not b_data_byte(6)) & '1' & (not b_data_byte(4)) &  '1' & (not b_data_byte(2)) & '1' & (not b_data_byte(0));
+					      end if;
 					   end if;
 					end if;
 					--else
